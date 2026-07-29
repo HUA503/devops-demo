@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_REGISTRY = "registry.cn-hangzhou.aliyuncs.com"
+        DOCKER_REGISTRY = "crpi-4qtdo3aa6148r2ys.cn-guangzhou.personal.cr.aliyuncs.com"
         DOCKER_NAMESPACE = "devops-demos"
         IMAGE_NAME = "${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/devops-demo-app"
         PREVIOUS_IMAGE = ""
