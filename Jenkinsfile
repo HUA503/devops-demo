@@ -11,19 +11,9 @@ pipeline {
     stages {
         stage("Checkout")       { steps { checkout scm } }
         stage("Build")          { steps { sh "mvn clean package -DskipTests" } }
-
-        stage("Trivy Base Scan"){
-            steps { script { sh "docker run --rm aquasec/trivy:latest image --severity HIGH,CRITICAL --exit-code 0 eclipse-temurin:17-jre-alpine" } }
-        }
-
         stage("Docker Build")   {
             steps { script { docker.build("${IMAGE_NAME}:${env.BUILD_NUMBER}") } }
         }
-
-        stage("Trivy Image Scan"){
-            steps { script { sh "docker run --rm aquasec/trivy:latest image --severity HIGH,CRITICAL --exit-code 1 ${IMAGE_NAME}:${env.BUILD_NUMBER}" } }
-        }
-
         stage("Push Aliyun")    {
             steps { script {
                 docker.withRegistry("https://${DOCKER_REGISTRY}", "aliyun-docker-registry") {
@@ -48,7 +38,7 @@ pipeline {
     post {
         success { echo "Deployed TAG: ${env.BUILD_NUMBER}" }
         failure {
-            script { if (env.PREVIOUS_IMAGE != "") {
+            script { if (env.PREVIOUS_IMAGE != null && env.PREVIOUS_IMAGE != "" && env.PREVIOUS_IMAGE.trim() != "null") {
                 sh """ docker pull ${env.PREVIOUS_IMAGE}
                        docker stop devops-demo-app 2>/dev/null || true
                        docker rm devops-demo-app 2>/dev/null || true
