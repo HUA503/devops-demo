@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_REGISTRY = "registry.cn-hangzhou.aliyuncs.com"
-        DOCKER_NAMESPACE = "<你的命名空间>"
+        DOCKER_NAMESPACE = "devops-demos"
         IMAGE_NAME = "${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/devops-demo-app"
         PREVIOUS_IMAGE = ""
     }
