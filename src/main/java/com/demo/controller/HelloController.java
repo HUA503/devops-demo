@@ -26,6 +26,6 @@ public class HelloController {
 
     @GetMapping("/api/health")
     public String health() {
-        return "{"status":"UP"}";
+        return "{\"status\":\"UP\"}";
     }
 }
