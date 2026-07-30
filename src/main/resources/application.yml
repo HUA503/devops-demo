@@ -22,3 +22,8 @@ management:
     export:
       prometheus:
         enabled: true
+
+rocketmq:
+  name-server: rocketmq-namesrv:9876
+  producer:
+    group: devops-producer-group
