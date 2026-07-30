@@ -22,3 +22,7 @@ management:
     export:
       prometheus:
         enabled: true
+    rocketmq:
+  name-server: 192.168.1.100:9876
+  producer:
+    group: devops-producer-group
